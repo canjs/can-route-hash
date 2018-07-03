@@ -75,7 +75,7 @@ Object.defineProperty(HashchangeObservable.prototype, "value", {
 	set: function(value){
 		canReflect.setValue(this, value);
 	}
-})
+});
 
 canReflect.assignSymbols(HashchangeObservable.prototype,{
 	"can.getValue": HashchangeObservable.prototype.get,
