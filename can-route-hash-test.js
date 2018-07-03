@@ -51,16 +51,16 @@ QUnit.test("test both sides of live binding", function(){
 			next = function(){
 				QUnit.deepEqual(bindingChanges,["bar","zed"],"dispatched events");
 				teardown();
-			}
+			};
 			// Updating the observable changes the hash
 			routeHash.value = "zed";
 			QUnit.equal(win.location.hash, "#!zed");
-		}
+		};
 
 
 		// Updating the hash changes the observable
 		win.location.hash = "#!bar";
-		QUnit.equal(routeHash.value, "bar")
+		QUnit.equal(routeHash.value, "bar");
 
 	});
 });
