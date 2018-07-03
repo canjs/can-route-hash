@@ -40,10 +40,6 @@
   },
   "devDependencies": {
     "can-observation": "^4.0.1",
-    "can-route": "^4.1.2",
-    "done-serve": "^2.0.0",
-    "donejs-cli": "^2.0.0",
-    "generator-donejs": "^2.1.0",
     "jshint": "^2.9.5",
     "steal": "^1.12.4",
     "steal-qunit": "^1.0.2",

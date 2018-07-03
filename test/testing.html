@@ -15,22 +15,21 @@
 <script>
   steal.done().then(function() {
     Promise.all([
-        System.import('can-route'),
-        System.import('can-observation'),
-				System.import('can-route-hash')
-        //System.import('can-stache-key'),
-        //System.import('can-map')
+        System.import('can-route-hash'),
+        System.import('can-reflect')
     ]).then(function(modules){
-        var route = modules[0];
-        window.ObserveInfo = modules[1];
-				var RouteHash = modules[2];
+        var RouteHash = modules[0],
+            canReflect = modules[1];
 
-        setTimeout(function () {
-					var routeTestReady = window.parent.routeTestReady;
-					if(routeTestReady) {
-						routeTestReady(RouteHash, route, window.location, window);
-					}
-        }, 30);
+        function callTestReady(){
+            var routeTestReady = window.parent.routeTestReady;
+            if(routeTestReady) {
+                routeTestReady(RouteHash, canReflect, window);
+            } else {
+                setTimeout(callTestReady,10);
+            }
+        }
+        callTestReady();
     });
   });
 </script>
