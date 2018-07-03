@@ -1,0 +1,55 @@
+{
+  "name": "can-route-hash",
+  "version": "0.0.0",
+  "description": "",
+  "homepage": "",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com//can-route-hash.git"
+  },
+  "author": {
+    "name": "",
+    "email": "",
+    "url": ""
+  },
+  "scripts": {
+    "preversion": "npm test && npm run build",
+    "version": "git commit -am \"Update version number\" && git checkout -b release && git add -f dist/",
+    "postpublish": "git push --tags && git checkout master && git branch -D release && git push",
+    "testee": "testee test.html --browsers firefox",
+    "test": "npm run jshint && npm run testee",
+    "jshint": "jshint ./*.js ./src/ --config",
+    "release:patch": "npm version patch && npm publish",
+    "release:minor": "npm version minor && npm publish",
+    "release:major": "npm version major && npm publish",
+    "build": "node build.js",
+    "develop": "done-serve --static --develop --port 8080"
+  },
+  "main": "./can-route-hash.js",
+  "keywords": [
+    "",
+    "donejs-plugin"
+  ],
+  "dependencies": {
+    "can-dom-events": "^1.2.0",
+    "can-globals": "^1.1.1",
+    "can-key-tree": "^1.1.0",
+    "can-observation-recorder": "^1.1.2",
+    "can-queues": "^1.1.2",
+    "can-reflect": "^1.16.7",
+    "can-simple-observable": "^2.1.1"
+  },
+  "devDependencies": {
+    "can-observation": "^4.0.1",
+    "can-route": "^4.1.2",
+    "done-serve": "^2.0.0",
+    "donejs-cli": "^2.0.0",
+    "generator-donejs": "^2.1.0",
+    "jshint": "^2.9.1",
+    "steal": "^1.12.4",
+    "steal-qunit": "^1.0.2",
+    "steal-tools": "^1.11.3",
+    "testee": "^0.7.0"
+  },
+  "license": "MIT"
+}

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>can.route test page</title>
+</head>
+<body>
+<p>This is a dummy page to use<br/> for testing route goodness</p>
+
+<!-- For the main CanJS test suite -->
+<script type="text/javascript" src="../../../node_modules/steal/steal.js" main="@empty"></script>
+
+<!-- For this repo’s test suite -->
+<script type="text/javascript" src="../node_modules/steal/steal-sans-promises.js" main="@empty"></script>
+
+<script>
+  steal.done().then(function() {
+    Promise.all([
+        System.import('can-route'),
+        System.import('can-observation'),
+				System.import('can-route-hash')
+        //System.import('can-stache-key'),
+        //System.import('can-map')
+    ]).then(function(modules){
+        var route = modules[0];
+        window.ObserveInfo = modules[1];
+				var RouteHash = modules[2];
+
+        setTimeout(function () {
+					var routeTestReady = window.parent.routeTestReady;
+					if(routeTestReady) {
+						routeTestReady(RouteHash, route, window.location, window);
+					}
+        }, 30);
+    });
+  });
+</script>
+
+</body>
+</html>
