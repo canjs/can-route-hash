@@ -19,10 +19,10 @@ function getHash(){
 function HashchangeObservable() {
     var dispatchHandlers =  this.dispatchHandlers.bind(this);
     var self = this;
-		this.value = "";
+		this._value = "";
     this.handlers = new KeyTree([Object,Array],{
         onFirst: function(){
-            self.value = getHash();
+            self._value = getHash();
             domEvents.addEventListener(window, 'hashchange', dispatchHandlers);
         },
         onEmpty: function(){
@@ -40,14 +40,14 @@ canReflect.assign(HashchangeObservable.prototype,{
     matchSlashes: false,
     root: "#!",
     dispatchHandlers: function() {
-        var old = this.value;
-        this.value = getHash();
-        if(old !== this.value) {
-            queues.enqueueByQueue(this.handlers.getNode([]), this, [this.value, old]
+        var old = this._value;
+        this._value = getHash();
+        if(old !== this._value) {
+            queues.enqueueByQueue(this.handlers.getNode([]), this, [this._value, old]
                 //!steal-remove-start
                 /* jshint laxcomma: true */
                 , null
-                , [ canReflect.getName(this), "changed to", this.value, "from", old ]
+                , [ canReflect.getName(this), "changed to", this._value, "from", old ]
                 /* jshint laxcomma: false */
                 //!steal-remove-end
             );
@@ -88,7 +88,7 @@ canReflect.assignSymbols(HashchangeObservable.prototype,{
 	},
 	//!steal-remove-start
 	"can.getName": function() {
-		return "HashchangeObservable<" + this.value + ">";
+		return "HashchangeObservable<" + this._value + ">";
 	},
 	//!steal-remove-end
 });
