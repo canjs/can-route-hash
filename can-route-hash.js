@@ -59,7 +59,7 @@ canReflect.assign(HashchangeObservable.prototype,{
     },
     set: function(path){
         var loc = LOCATION();
-        if(!path && !loc.path) {
+        if(!path && !loc.hash) {
 
         } else if(loc.hash !== "#" + path) {
             loc.hash = "!" + path;
