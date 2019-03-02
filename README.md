@@ -1,32 +1,26 @@
 # can-route-hash
 
-[![Build Status](https://travis-ci.org//can-route-hash.svg?branch=master)](https://travis-ci.org//can-route-hash)
+[![Join our Slack](https://img.shields.io/badge/slack-join%20chat-611f69.svg)](https://www.bitovi.com/community/slack?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+[![Join our Discourse](https://img.shields.io/discourse/https/forums.bitovi.com/posts.svg)](https://forums.bitovi.com/?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/canjs/can-route-hash/blob/master/LICENSE)
+[![npm version](https://badge.fury.io/js/can-route-hash.svg)](https://www.npmjs.com/package/can-route-hash)
+[![Travis build status](https://travis-ci.org/canjs/can-route-hash.svg?branch=master)](https://travis-ci.org/canjs/can-route-hash)
+[![Greenkeeper badge](https://badges.greenkeeper.io/canjs/can-route-hash.svg)](https://greenkeeper.io/)
 
+An observable that is cross bound to the `window.location.hash`.
 
+## Documentation
 
-## Usage
+Read the [can-route-hash API docs on CanJS.com](https://canjs.com/doc/can-route-hash.html).
 
-### ES6 use
+## Changelog
 
-With StealJS, you can import this module directly in a template that is autorendered:
+See the [latest releases on GitHub](https://github.com/canjs/can-route-hash/releases).
 
-```js
-import plugin from 'can-route-hash';
-```
+## Contributing
 
-### CommonJS use
+The [contribution guide](https://github.com/canjs/can-route-hash/blob/master/CONTRIBUTING.md) has information on getting help, reporting bugs, developing locally, and more.
 
-Use `require` to load `can-route-hash` and everything else
-needed to create a template that uses `can-route-hash`:
+## License
 
-```js
-var plugin = require("can-route-hash");
-```
-
-### Standalone use
-
-Load the `global` version of the plugin:
-
-```html
-<script src='./node_modules/can-route-hash/dist/global/can-route-hash.js'></script>
-```
+[MIT](https://github.com/canjs/can-route-hash/blob/master/LICENSE)
