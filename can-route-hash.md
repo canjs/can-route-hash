@@ -1,6 +1,7 @@
 @module {RouteHash} can-route-hash
 @parent can-routing
 @collection can-infrastructure
+@package ./package.json
 
 @description An observable that is cross bound to the window.location.hash.
 
