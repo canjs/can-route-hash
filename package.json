@@ -35,7 +35,7 @@
     "can-observation-recorder": "^1.1.2",
     "can-queues": "^1.1.2",
     "can-reflect": "^1.16.7",
-    "can-simple-observable": "^2.1.1"
+    "can-simple-observable": "2.4.1"
   },
   "devDependencies": {
     "can-observation": "^4.0.1",
