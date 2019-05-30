@@ -3,85 +3,96 @@ var helpers = require("./test/helpers");
 
 QUnit.module('can-route-hash');
 
-QUnit.test('Basics', function(){
+QUnit.test('Basics', function(assert) {
 	var teardown = helpers.setup(function(RouteHash){
+
 		var hash = new RouteHash();
 
-		QUnit.equal(hash.value, "", "read as empty");
+		assert.equal(hash.value, "", "read as empty");
 
 		hash.value = "foo/bar";
 
-		QUnit.equal(hash.value, "foo/bar");
+		assert.equal(hash.value, "foo/bar");
 		teardown();
-	});
+	}, assert);
+
 });
 
-QUnit.test('Event handlers are called', function(){
+QUnit.test('Event handlers are called', function(assert) {
 	var teardown = helpers.setup(function(RouteHash, canReflect){
 		var hash = new RouteHash();
-		canReflect.onValue(hash, function(){
-			QUnit.ok(true, "it worked");
+		var handler = function(){
+			assert.ok(true, "it worked");
 			teardown();
-		});
+			canReflect.offValue(hash, handler);
+		};
+		canReflect.onValue(hash, handler);
 		hash.value = "foo/bar";
-	});
+	}, assert);
+
 });
 
-QUnit.test("test both sides of live binding", function(){
+QUnit.test("test both sides of live binding", function(assert) {
 	var teardown = helpers.setup(function(RouteHash, canReflect, win){
 		win.location.hash = "#!foo";
 		var routeHash = new RouteHash();
 
-		QUnit.equal(routeHash.value, "foo", "routeHash is initialized to window's hash");
+		assert.equal(routeHash.value, "foo", "routeHash is initialized to window's hash");
 
 
 		var next;
-		// Setup a binding
 		var bindingChanges = [];
-		canReflect.onValue(routeHash, function(newVal){
+		
+		var handler = function(newVal){
 			bindingChanges.push(newVal);
 			next();
-		});
-
+		};
+		// Setup a binding
+		canReflect.onValue(routeHash, handler);
+		
 		next = function(){
 			next = function(){
-				QUnit.deepEqual(bindingChanges,["bar","zed"],"dispatched events");
+				assert.deepEqual(bindingChanges,["bar","zed"],"dispatched events");
 				teardown();
+				canReflect.offValue(routeHash, handler);
 			};
 			// Updating the observable changes the hash
 			routeHash.value = "zed";
-			QUnit.equal(win.location.hash, "#!zed");
+			assert.equal(win.location.hash, "#!zed");
 		};
 
 		// Updating the hash changes the observable
+		
 		win.location.hash = "#!bar";
-		QUnit.equal(routeHash.value, "bar");
-	});
+		assert.equal(routeHash.value, "bar");
+	}, assert);
 });
 
-QUnit.test('Can set hash to empty string after it has a value (#3)', function(){
+QUnit.test('Can set hash to empty string after it has a value (#3)', function(assert) {
 	var teardown = helpers.setup(function(RouteHash, canReflect, win){
 		win.location.hash = "";
 		var routeHash = new RouteHash();
-
+		var handler = function() {
+			canReflect.offValue(routeHash, handler);
+		};
 		// Set up a binding
-		canReflect.onValue(routeHash, function() {});
+		canReflect.onValue(routeHash, handler);
 
-		QUnit.equal(win.location.hash, "", "Hash is initialized");
-		QUnit.equal(routeHash.value, "", "Observable is initialized to window's hash");
+		assert.equal(win.location.hash, "", "Hash is initialized");
+		assert.equal(routeHash.value, "", "Observable is initialized to window's hash");
 
 		routeHash.value = "";
-		QUnit.equal(win.location.hash, "", "Updating the observable to an empty string does not change the hash");
+		assert.equal(win.location.hash, "", "Updating the observable to an empty string does not change the hash");
 
 		win.location.hash = "#!foo";
-		QUnit.equal(routeHash.value, "foo", "Setting the hash changes the observable");
+		assert.equal(routeHash.value, "foo", "Setting the hash changes the observable");
 
 		routeHash.value = "bar";
-		QUnit.equal(win.location.hash, "#!bar", "Setting the observable changes the hash");
+		assert.equal(win.location.hash, "#!bar", "Setting the observable changes the hash");
 
 		routeHash.value = "";
-		QUnit.equal(win.location.hash, "#!", "Updating the observable back to an empty string changes the hash");
+		assert.equal(win.location.hash, "#!", "Updating the observable back to an empty string changes the hash");
 
 		teardown();
-	});
+	}, assert);
 });
